@@ -16,4 +16,4 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo ${{ github.event.issue.pull_request.url }}
+        run: echo "${{ github.event.issue.title}}"
