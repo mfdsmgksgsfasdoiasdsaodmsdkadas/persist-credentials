@@ -1,10 +1,7 @@
 name: "Quality Contributions"
 on:
-  pull_request:
+  issues:
 
-defaults:
-  run:
-    shell: pwsh
 
 jobs:
   # Check if the PR is for quality contributions; all other jobs depend on this one.
