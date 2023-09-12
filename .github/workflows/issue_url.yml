@@ -14,6 +14,8 @@ jobs:
     steps:
       - id: title
         run: |
-          $Check = "${{ contains(github.event.pull_request.title, 'Quality:') }}"
-          "Check: $Check"
-          "check=$Check" >> $env:GITHUB_OUTPUT
+          echo "Checking pull request with title ${{ github.event.pull_request.title }} from source branch ${{ github.event.pull_request.head.ref }}"
+          if ! [[ "${{ github.event.pull_request.title }}" =~ ^AIRO-[0-9]+[[:space:]].*$ ]] && ! [[ "${{ github.event.pull_request.head.ref }}" =~ ^AIRO-[0-9]+.*$ ]]
+          then
+            echo -e "Please make sure one of the following is true:\n \
+            1. the pull request title starts with 'AIRO-xxxx ', e.g. 'AIRO-1024 My
