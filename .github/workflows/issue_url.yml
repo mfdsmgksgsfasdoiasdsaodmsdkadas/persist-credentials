@@ -1,19 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
-name: run pull_request_target
-
-# Controls when the workflow will run
+name: "Quality Contributions"
 on:
-  issues:
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  pull_request:
+
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  # Check if the PR is for quality contributions; all other jobs depend on this one.
+  check:
+    name: Is Quality Contribution?
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo '${{ github.event.issue.title}}'
+      - id: title
+        run: |
+          $Check = "${{ contains(github.event.pull_request.title, 'Quality:') }}"
+          "Check: $Check"
+          "check=$Check" >> $env:GITHUB_OUTPUT
